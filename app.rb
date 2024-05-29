@@ -1,14 +1,15 @@
 require 'webrick'
 require 'json'
 require 'pg'
+require 'dotenv/load'
 
 # Database configuration
 DB_CONFIG = {
-  host: 'localhost',
-  dbname: 'postgres',
-  user: 'postgres',
-  password: 'root',
-  port: 5432
+  dbname: ENV['DB_NAME'],
+  user: ENV['DB_USER'],
+  password: ENV['DB_PASSWORD'],
+  host: ENV['DB_HOST'],
+  port: ENV['DB_PORT'] || 5432 # Use default port 5432 if not set
 }
 
 # Connect to the database
