@@ -1,7 +1,7 @@
 require 'webrick'
-require 'json'
 require 'pg'
 require 'dotenv/load'
+require_relative 'src/routes'
 
 # Database configuration
 DB_CONFIG = {
@@ -32,15 +32,14 @@ end
 
 server = WEBrick::HTTPServer.new(:Port => 8000)
 
-# Define a basic GET route
-server.mount_proc '/api/greet' do |req, res|
-  res.content_type = 'application/json'
-  res.body = { message: 'Hello, World!' }.to_json
-end
+# Load routes
+load_routes(server, conn)
 
 # Start the server
 trap 'INT' do 
-  server.shutdown 
+  server.shutdown
+  conn.close if conn
+  puts 'Server and database connection closed gracefully'
 end
 
 server.start
