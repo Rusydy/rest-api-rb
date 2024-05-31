@@ -31,6 +31,15 @@ class MessageController
     }.to_json
   end
 
+  # list_messages
+  def self.list_messages(req, res)
+    messages = MessageService.list_messages()
+
+    res.status = HTTPStatus::Ok
+    res.content_type = 'application/json'
+    res.body = { messages: messages }.to_json
+  end
+
   private
 
   def self.validate_add_message_request(req, res)

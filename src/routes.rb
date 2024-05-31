@@ -10,6 +10,7 @@ ROUTES = {
   greet: '/api/greet',
   health_check: '/api/health-check',
   add_message: '/api/message',
+  list_messages: '/api/messages',
 }.freeze
 
 def load_routes(server)
@@ -45,5 +46,16 @@ def load_routes(server)
     end
 
     MessageController.add_message(req, res)
+  end
+
+  # List messages
+  server.mount_proc ROUTES[:list_messages] do |req, res|
+    if req.request_method != HTTP_METHODS[:GET]
+      res.status = HTTPStatus::MethodNotAllowed
+      res.body = { error: 'Method not allowed' }.to_json
+      next
+    end
+
+    MessageController.list_messages(req, res)
   end
 end

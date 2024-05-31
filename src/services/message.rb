@@ -43,4 +43,21 @@ class MessageService
 
     { id: id }
   end
+
+  def self.list_messages()
+    begin
+      query = $conn.exec("SELECT * FROM messages;")
+
+      messages = []
+      query.each do |row|
+        messages << { id: row['id'], message: row['message'] }
+      end
+      messages
+    rescue PG::Error => e
+      puts "this is the error from query #{e.message}"
+      return { error: e.message }
+    end
+
+    messages
+  end
 end
