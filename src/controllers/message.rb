@@ -19,7 +19,6 @@ class MessageController
     end
 
     body = JSON.parse(req.body)
-    puts "The body is #{body}"
 
     message = body['message']
 
@@ -30,7 +29,6 @@ class MessageController
 
     # TODO: Implement this method later
     # MessageService.add_message(message)
-    puts "The message is #{message}"
 
     res.status = HTTPStatus::Created
     res.body = { message: 'Message added' }.to_json
