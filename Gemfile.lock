@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     dotenv (3.1.2)
+    http_status (0.0.1)
     pg (1.5.6)
     webrick (1.8.1)
 
@@ -10,6 +11,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
+  http_status
   pg
   webrick
 
