@@ -30,4 +30,17 @@ class MessageService
     result = $conn.exec("SELECT message FROM greetings WHERE id = 1;")
     result[0]['message'] # Assuming there's at least one row with id = 1
   end
+
+  def self.add_message(message)
+    begin
+      query = $conn.exec_params("INSERT INTO messages (message) VALUES ($1) RETURNING id;", [message])
+      puts "this is the result from query #{query[0]}"
+      id = query[0]['id']
+    rescue PG::Error => e
+      puts "this is the error from query #{e.message}"
+      return { error: e.message }
+    end
+
+    { id: id }
+  end
 end
