@@ -1,10 +1,10 @@
 require_relative 'controllers/message'
 require 'http_status'
 
-def load_routes(server, db_connection)
+def load_routes(server)
   # Greet
   server.mount_proc '/api/greet' do |req, res|
-    MessageController.greet(req, res, db_connection)
+    MessageController.greet(req, res)
   end
 
   # Health-check
